@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     });
     res.status(200).json(productData);
   } 
-  catch {
+  catch (err) {
     res.status(400).json(err)
   }
   // be sure to include its associated Category and Tag data
@@ -30,7 +30,7 @@ router.get('/:id', async (req, res) => {
     }
     res.status(200).json(productData);
   } 
-  catch {
+  catch (err) {
     res.status(400).json(err)
   }
   // be sure to include its associated Category and Tag data
@@ -62,24 +62,22 @@ router.post('/', async (req, res) => {
       // if no product tags, just respond
       res.status(200).json(product);
     }
-    catch {
+    catch (err) {
       res.status(400).json(err);
     }
 });
 
 // update product
 router.put('/:id', async (req, res) => {
+try {  
   // update product data
-  Product.update(req.body, {
+  const product = await Product.update(req.body, {
     where: {
       id: req.params.id,
     },
-  })
-    .then((product) => {
+  })  
       // find all associated tags from ProductTag
-      return ProductTag.findAll({ where: { product_id: req.params.id } });
-    })
-    .then((productTags) => {
+      const productTags = await ProductTag.findAll({ where: { product_id: req.params.id } });
       // get list of current tag_ids
       const productTagIds = productTags.map(({ tag_id }) => tag_id);
       // create filtered list of new tag_ids
@@ -97,20 +95,36 @@ router.put('/:id', async (req, res) => {
         .map(({ id }) => id);
 
       // run both actions
-      return Promise.all([
+      const updatedProductTags = await Promise.all([
         ProductTag.destroy({ where: { id: productTagsToRemove } }),
         ProductTag.bulkCreate(newProductTags),
       ]);
-    })
-    .then((updatedProductTags) => res.json(updatedProductTags))
-    .catch((err) => {
+      res.status(200).json(updatedProductTags);
+    }
+    catch (err) {
       // console.log(err);
       res.status(400).json(err);
-    });
+  }
 });
 
-router.delete('/:id', (req, res) => {
-  // delete one product by its `id` value
+router.delete('/:id', async (req, res) => {
+  try {
+    const deletedProductById = await Product.findByPk(req.params.id);
+    //delete product by its id value
+    await Product.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!deletedProductById) {
+      res.status(400).json({'message': 'Please utilize valid id for deletion'});
+    }
+    res.status(200).json([{'message': 'These are your deleted products'}, 
+    {id: deletedProductById.id, product_name: deletedProductById.product_name}]);
+  }
+  catch (err) {
+    res.status(400).json(err);
+  }
 });
 
 module.exports = router;
