@@ -127,4 +127,10 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+//first we're going to try deleting product by id
+//then we're going to wait then destroy it where the params are id
+//then if it not a valid id it iwll throw a message after the if statement
+//if it is a valid id, u get a 200 and proper message of what was deleted
+//latestly, u have your general catch all after try for any general exceptions
+
 module.exports = router;
