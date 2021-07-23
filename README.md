@@ -51,7 +51,8 @@ Utilize postman, or similar services, to hit api routes above
 [Video3](https://vimeo.com/578308827) => Category + Tag Routes
 </br>
 [Video4](https://vimeo.com/578308984) => Product Routes
-
+</br>
+[!Screenshot](./pics/ecommerce.jpg)
 </br>
 Satisfies all of the preceding acceptance criteria plus the following:
 
