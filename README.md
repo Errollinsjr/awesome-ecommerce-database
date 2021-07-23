@@ -52,7 +52,7 @@ Utilize postman, or similar services, to hit api routes above
 </br>
 [Video4](https://vimeo.com/578308984) => Product Routes
 </br>
-[!Screenshot](./pics/ecommerce.jpg)
+[ecommerce.png](https://postimg.cc/RWN0xgLK)
 </br>
 Satisfies all of the preceding acceptance criteria plus the following:
 
