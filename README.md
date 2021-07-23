@@ -44,13 +44,13 @@ Create ecommerce_db, use ecommerce_db, run node seeds/index.js to populate table
 </br>
 Utilize postman, or similar services, to hit api routes above
 </br>
-[!Video1](https://vimeo.com/578308253) => Starting project + Seeding database first
+[Video1](https://vimeo.com/578308253) => Starting project + Seeding database first
 </br>
-[!Video2](https://vimeo.com/578308538) => Category Routes
+[Video2](https://vimeo.com/578308538) => Category Routes
 </br>
-[!Video3](https://vimeo.com/578308827) => Category + Tag Routes
+[Video3](https://vimeo.com/578308827) => Category + Tag Routes
 </br>
-[!Video4](https://vimeo.com/578308984) => Product Routes
+[Video4](https://vimeo.com/578308984) => Product Routes
 
 </br>
 Satisfies all of the preceding acceptance criteria plus the following:
