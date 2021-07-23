@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
     const categoryData = await Category.findByPk(req.params.id, {
       include: [{ model: Product }]
     });
-    if(!categorytData) {
+    if(!categoryData) {
       res.status(400).json({'message': "Category id is not found, please utilize valid id"});
     }
     res.status(200).json(categoryData);
@@ -38,9 +38,8 @@ router.post('/', async (req, res) => {
   // create a new category
   try{ 
     const category = await Category.create({category_name: req.body.category_name});        
-        res.status(200).json(category);
         res.status(200).json([{'message': 'Category added successfully.'}, 
-        {id: catData.id, category_name: catData.category_name}]);
+        {id: category.id, category_name: category.category_name}]);
       }
       catch (err) {
         res.status(400).json(err);
@@ -68,7 +67,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
   try {
-    const category = await Category.findByPk(req.params.id);
+    const categoryDeleted = await Category.findByPk(req.params.id);
     // utilize destroy where the categories id matches up  
     await Category.destroy({
       where: {
@@ -76,11 +75,11 @@ router.delete('/:id', async (req, res) => {
       },
     });
     // if 400 post message below, if not then success
-    if(!category) {
+    if(!categoryDeleted) {
       res.status(400).json({'message': "Category not found, deletion not plausible"})
     }
     res.status(200).json([{'message': "Category deleted: "}, 
-    {id: catDataDeleted.id, category_name: catDataDeleted.category_name}])
+    {id: categoryDeleted.id, category_name: categoryDeleted.category_name}])
   }
   catch {
     res.status(400).json(err);
